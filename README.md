@@ -11,7 +11,10 @@
 - **Interactive Analysis**: Upload CSV or Excel files containing 15-minute interval power data.
 - **Visual Insights**: Dynamic charts powered by Recharts, offering Line and Area views with optional energy accumulation overlays.
 - **Comprehensive Stats**: Track average, peak, and minimum power (kW), as well as total energy consumption over any selected period (Year, Month, Week, Day).
+- **Market Analysis**: Deep integration with SMARD (Bundesnetzagentur) API to fetch and analyze German wholesale electricity prices, providing insights into Day-Ahead pricing trends.
+- **Energy News**: Integrated RSS feeds from leading German energy news sources to stay informed on market changes, diesel prices, and infrastructure updates.
 - **Peak Shaving Analysis**: A unique interactive tool to identify potential savings.
+- **API Guarding**: Robust request limiting mechanism (1000 requests limit) for external feeds to ensure efficient and responsible API usage.
 - **Premium UI**: Modern dark/light mode interface built with Material UI for a sleek, responsive experience.
 
 ## 📊 Peak Shaving & Threshold Analysis
