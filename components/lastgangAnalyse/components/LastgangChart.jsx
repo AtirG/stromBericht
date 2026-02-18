@@ -71,7 +71,8 @@ export default function LastgangChart({
     thresholdKW,
     setThresholdKW,
     chartDomain,
-    energyUnit
+    energyUnit,
+    isFullScreen
 }) {
     const formatTick = useCallback(
         (tsm) => {
@@ -103,7 +104,7 @@ export default function LastgangChart({
     const DataComponent = chartType === "line" ? Line : Area;
 
     return (
-        <Box sx={{ width: "100%", height: 440 }}>
+        <Box sx={{ width: "100%", height: isFullScreen ? "calc(100vh - 350px)" : 440, minHeight: 300 }}>
             <ResponsiveContainer>
                 <ChartComponent
                     data={finalSeries}

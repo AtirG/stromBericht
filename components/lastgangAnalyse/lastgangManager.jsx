@@ -9,6 +9,9 @@ import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import BoltIcon from "@mui/icons-material/ElectricBolt";
+import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
+import IconButton from "@mui/material/IconButton";
 
 import { pad2, round, calculateThresholdStats, getPeriodDomain } from "./utils/lastgangUtils";
 import LastgangUploader from "./components/LastgangUploader";
@@ -21,6 +24,9 @@ export default function LastgangManager() {
     const [fileName, setFileName] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [isFullScreen, setIsFullScreen] = useState(false);
+
+    const toggleFullScreen = () => setIsFullScreen(!isFullScreen);
 
     const [filterMode, setFilterMode] = useState("month");
     const [selectedKey, setSelectedKey] = useState("all");
@@ -171,11 +177,29 @@ export default function LastgangManager() {
                 : "Tag";
 
     return (
-        <Box sx={{ p: 3 }}>
+        <Box
+            sx={{
+                p: isFullScreen ? 2 : 3,
+                width: isFullScreen ? "100vw" : "100%",
+                height: isFullScreen ? "100vh" : "auto",
+                position: isFullScreen ? "fixed" : "relative",
+                top: 0,
+                left: 0,
+                zIndex: isFullScreen ? 1300 : "auto",
+                bgcolor: "background.default",
+                overflow: "auto",
+                transition: "all 0.3s ease",
+            }}
+        >
             <Paper elevation={2} sx={{ p: 2 }}>
-                <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
-                    <BoltIcon color="primary" />
-                    <Typography variant="h5">Lastgang Analyse</Typography>
+                <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+                    <Stack direction="row" alignItems="center" spacing={1}>
+                        <BoltIcon color="primary" />
+                        <Typography variant="h5">Lastgang Analyse</Typography>
+                    </Stack>
+                    <IconButton onClick={toggleFullScreen} color="primary">
+                        {isFullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
+                    </IconButton>
                 </Stack>
 
                 {!raw.length ? (
@@ -253,6 +277,7 @@ export default function LastgangManager() {
                             setThresholdKW={setThresholdKW}
                             chartDomain={chartDomain}
                             energyUnit={energyUnit}
+                            isFullScreen={isFullScreen}
                         />
                     </>
                 )}
