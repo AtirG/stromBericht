@@ -56,23 +56,6 @@ export default function Header() {
                         >
                             Anleitung
                         </Button>
-                        <Button
-                            component={Link}
-                            href="/market"
-                            variant="text"
-                            color="inherit"
-                            sx={{
-                                fontWeight: "medium",
-                                px: 2,
-                                borderRadius: 2,
-                                "&:hover": {
-                                    bgcolor: "action.hover",
-                                    color: "primary.main"
-                                }
-                            }}
-                        >
-                            Marktanalyse
-                        </Button>
                     </Stack>
                 </Box>
 
