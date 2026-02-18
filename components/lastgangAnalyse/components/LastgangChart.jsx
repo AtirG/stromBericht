@@ -39,7 +39,7 @@ const CustomTooltip = ({ active, payload, label, energyUnit }) => {
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.75 }}>
                     {payload.map((entry, index) => {
-                        const isEnergy = entry.name.includes("Energie");
+                        const isEnergy = entry.name === "Energie";
                         const prec = isEnergy ? (energyUnit === "kWh" ? 1 : 3) : 1;
                         const val = isEnergy ? convertEnergy(entry.value, energyUnit) : entry.value;
                         const unit = isEnergy ? energyUnit : "kW";
@@ -136,7 +136,7 @@ export default function LastgangChart({
                         dot={false}
                         strokeWidth={2}
                         fillOpacity={0.35}
-                        name="Leistung (kW)"
+                        name="Leistung"
                     />
 
                     {energyOverlay && (
@@ -161,7 +161,7 @@ export default function LastgangChart({
                             dot={false}
                             strokeWidth={2}
                             fillOpacity={0.15}
-                            name="Energie (kWh)"
+                            name="Energie"
                         />
                     )}
 
@@ -177,9 +177,8 @@ export default function LastgangChart({
                             fill: 'red',
                             fontSize: 14,
                             fontWeight: "bold",
-                            dy: -10,
-                            dx: -10,
-                            background: "white"
+                            dy: -18,
+                            dx: -10
                         }}
                         isFront={true}
                     />
