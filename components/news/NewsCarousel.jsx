@@ -85,7 +85,7 @@ const NewsTicker = () => {
             elevation={0}
             sx={{
                 height: 32,
-                bgcolor: theme.palette.mode === 'dark' ? '#0a0a0a' : '#f5f5f5',
+                bgcolor: "background.darker",
                 borderTop: `1px solid ${theme.palette.divider}`,
                 borderBottom: `1px solid ${theme.palette.divider}`,
                 overflow: 'hidden',

@@ -120,7 +120,8 @@ export default function LastgangChart({
                     />
                     <YAxis
                         yAxisId="kW"
-                        width={64}
+                        width={80}
+                        tickFormatter={(v) => formatNum(v, 0)}
                         label={{
                             value: "kW",
                             angle: -90,
@@ -143,7 +144,8 @@ export default function LastgangChart({
                         <YAxis
                             yAxisId="kWh"
                             orientation="right"
-                            width={64}
+                            width={80}
+                            tickFormatter={(v) => formatNum(v, 0)}
                             label={{
                                 value: "kWh",
                                 angle: -90,
