@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import Box from "@mui/material/Box";
 import {
     ResponsiveContainer,
@@ -55,6 +55,12 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 export default function MarketChart({ data, basePrice, peakPrice }) {
+    const domain = useMemo(() => {
+        if (!data || data.length === 0) return [0, 0];
+        const timestamps = data.map(d => d.timestamp);
+        return [Math.min(...timestamps), Math.max(...timestamps)];
+    }, [data]);
+
     const formatTick = useCallback((ts) => {
         const d = new Date(ts);
         return d.toLocaleDateString("de-DE", {
@@ -80,8 +86,9 @@ export default function MarketChart({ data, basePrice, peakPrice }) {
                     <XAxis
                         dataKey="timestamp"
                         type="number"
-                        domain={['auto', 'auto']}
+                        domain={domain}
                         tickFormatter={formatTick}
+                        padding={{ left: 0, right: 0 }}
                     />
                     <YAxis
                         tickFormatter={(v) => formatNum(v, 1)}
