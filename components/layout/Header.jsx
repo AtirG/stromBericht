@@ -38,23 +38,42 @@ export default function Header() {
                 </Stack>
 
                 <Box sx={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
-                    <Button
-                        component={Link}
-                        href="/guide"
-                        variant="text"
-                        color="inherit"
-                        sx={{
-                            fontWeight: "medium",
-                            px: 2,
-                            borderRadius: 2,
-                            "&:hover": {
-                                bgcolor: "action.hover",
-                                color: "primary.main"
-                            }
-                        }}
-                    >
-                        Anleitung
-                    </Button>
+                    <Stack direction="row" spacing={1}>
+                        <Button
+                            component={Link}
+                            href="/guide"
+                            variant="text"
+                            color="inherit"
+                            sx={{
+                                fontWeight: "medium",
+                                px: 2,
+                                borderRadius: 2,
+                                "&:hover": {
+                                    bgcolor: "action.hover",
+                                    color: "primary.main"
+                                }
+                            }}
+                        >
+                            Anleitung
+                        </Button>
+                        <Button
+                            component={Link}
+                            href="/market"
+                            variant="text"
+                            color="inherit"
+                            sx={{
+                                fontWeight: "medium",
+                                px: 2,
+                                borderRadius: 2,
+                                "&:hover": {
+                                    bgcolor: "action.hover",
+                                    color: "primary.main"
+                                }
+                            }}
+                        >
+                            Marktanalyse
+                        </Button>
+                    </Stack>
                 </Box>
 
                 <ThemeMode mode={mode} onChange={toggleMode} />
