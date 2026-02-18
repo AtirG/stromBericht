@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { formatNum, convertEnergy } from "../utils/lastgangUtils";
+import { formatNum, convertEnergy, formatDT } from "../utils/lastgangUtils";
 import Box from "@mui/material/Box";
 import {
     ResponsiveContainer,
@@ -14,6 +14,54 @@ import {
     Area,
     ReferenceLine,
 } from "recharts";
+
+const CustomTooltip = ({ active, payload, label, energyUnit }) => {
+    if (active && payload && payload.length) {
+        return (
+            <Box
+                sx={{
+                    bgcolor: "background.paper",
+                    p: 1.5,
+                    border: "1px solid",
+                    borderColor: "divider",
+                    borderRadius: 2,
+                    boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+                    minWidth: 180
+                }}
+            >
+                <Box sx={{ mb: 1, pb: 0.5, borderBottom: "1px solid", borderColor: "divider" }}>
+                    <Box sx={{ fontSize: "0.7rem", color: "text.secondary", fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.5 }}>
+                        Zeitpunkt
+                    </Box>
+                    <Box sx={{ fontSize: "0.85rem", fontWeight: 600 }}>
+                        {formatDT(label, { day: '2-digit', month: '2-digit', year: 'numeric' })} | {formatDT(label, { hour: '2-digit', minute: '2-digit' })} Uhr
+                    </Box>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.75 }}>
+                    {payload.map((entry, index) => {
+                        const isEnergy = entry.name.includes("Energie");
+                        const prec = isEnergy ? (energyUnit === "kWh" ? 1 : 3) : 1;
+                        const val = isEnergy ? convertEnergy(entry.value, energyUnit) : entry.value;
+                        const unit = isEnergy ? energyUnit : "kW";
+
+                        return (
+                            <Box key={index} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 2 }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: entry.color }} />
+                                    <Box sx={{ fontSize: "0.8rem", color: "text.secondary" }}>{entry.name}</Box>
+                                </Box>
+                                <Box sx={{ fontSize: "0.8rem", fontWeight: 700, color: "text.primary" }}>
+                                    {formatNum(val, prec)} {unit}
+                                </Box>
+                            </Box>
+                        );
+                    })}
+                </Box>
+            </Box>
+        );
+    }
+    return null;
+};
 
 export default function LastgangChart({
     chartType,
@@ -41,17 +89,6 @@ export default function LastgangChart({
         },
         [filterMode],
     );
-
-    const tooltipLabelFormatter = (tsm) => {
-        const d = new Date(tsm);
-        return d.toLocaleString("de-DE", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-        });
-    };
 
     const handleChartClick = (state) => {
         if (state && state.activePayload && state.activePayload[0]) {
@@ -90,16 +127,7 @@ export default function LastgangChart({
                             position: "insideLeft",
                         }}
                     />
-                    <Tooltip
-                        labelFormatter={tooltipLabelFormatter}
-                        formatter={(v, name) => {
-                            if (name.includes("Energie")) {
-                                const prec = energyUnit === "kWh" ? 1 : 3;
-                                return [formatNum(convertEnergy(v, energyUnit), prec) + " " + energyUnit, name];
-                            }
-                            return [formatNum(v) + " kW", name];
-                        }}
-                    />
+                    <Tooltip content={<CustomTooltip energyUnit={energyUnit} />} />
 
                     <DataComponent
                         yAxisId="kW"

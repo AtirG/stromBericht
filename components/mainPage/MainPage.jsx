@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import LastgangManager from "@/components/lastgangAnalyse/lastgangManager";
+import NewsCarousel from "@/components/news/NewsCarousel";
 
 export default function MainPage() {
     return (
@@ -21,8 +22,11 @@ export default function MainPage() {
                     </Typography>
                 </Box>
 
+                {/* News Ticker is now fixed at the bottom */}
+                <NewsCarousel />
+
                 {/* Main Application Segment */}
-                <Box>
+                <Box sx={{ pb: 8 }}> {/* Add padding to prevent ticker overlap */}
                     <LastgangManager />
                 </Box>
             </Stack>
