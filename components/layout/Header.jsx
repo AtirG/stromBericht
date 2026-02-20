@@ -16,8 +16,9 @@ export default function Header() {
 
     return (
         <AppBar position="static" color="background.default" elevation={0} sx={{ borderBottom: "1px solid", borderColor: "divider" }}>
-            <Toolbar>
-                <Stack direction="row" spacing={1} alignItems="center" sx={{ flexGrow: 1 }}>
+            <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                {/* Left side: Logo */}
+                <Box sx={{ display: "flex", alignItems: "center", flex: 1 }}>
                     <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "inherit" }}>
                         <SvgIcon
                             viewBox="0 0 640 640"
@@ -31,13 +32,14 @@ export default function Header() {
                         >
                             <path d="M128 320L156.5 92C158.5 76 172.1 64 188.3 64L356.9 64C371.9 64 384 76.1 384 91.1C384 94.3 383.4 97.6 382.3 100.6L336 224L475.3 224C495.5 224 512 240.4 512 260.7C512 268.1 509.8 275.3 505.6 281.4L313.4 562.4C307.5 571 297.8 576.1 287.5 576.1L284.6 576.1C268.9 576.1 256.1 563.3 256.1 547.6C256.1 545.3 256.4 543 257 540.7L304 352L160 352C142.3 352 128 337.7 128 320z" />
                         </SvgIcon>
-                        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                        <Typography variant="h6" sx={{ fontWeight: "bold", display: { xs: "none", sm: "block" } }}>
                             Strombericht
                         </Typography>
                     </Link>
-                </Stack>
+                </Box>
 
-                <Box sx={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
+                {/* Center: Navigation */}
+                <Box sx={{ display: "flex", justifyContent: "center", flex: 1 }}>
                     <Stack direction="row" spacing={1}>
                         <Button
                             component={Link}
@@ -59,7 +61,10 @@ export default function Header() {
                     </Stack>
                 </Box>
 
-                <ThemeMode mode={mode} onChange={toggleMode} />
+                {/* Right side: Theme switch */}
+                <Box sx={{ display: "flex", justifyContent: "flex-end", flex: 1 }}>
+                    <ThemeMode mode={mode} onChange={toggleMode} />
+                </Box>
             </Toolbar>
         </AppBar>
     );
